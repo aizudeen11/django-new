@@ -1,0 +1,46 @@
+{% extends 'navbar.html' %}
+{% block content %}
+
+<div class="container">
+    <h1>Forex Trading Using Deep Learning</h1>
+    <h3>Summary</h3>
+    <p>Deep learning is a method in artificial intelligence (AI) that teaches computers to process data in a way that is inspired by the human brain. Deep 
+        learning models can recognize complex patterns in pictures, text, sounds, and other data to produce accurate insights and predictions. For this project we 
+        will use deep learning to train computer to spot a trend and make a prediction on the movement of forex trading
+    </p>
+    <h3>Details</h3>
+    <p>For the first step, we will import relevant Python library that we will use for this project</p>
+    <img class="img-fluid my-3" src="https://i.ibb.co/284Kzrb/1.png" alt="output 1">
+    <p>Then we will load past trading data using <code>yfinance</code> module</p>
+    <img class="img-fluid my-3" src="https://i.ibb.co/LkWTwgW/2.png" alt="output 2">
+    <p class="my-3"><i>output</i></p>
+    <img class="img-fluid my-3" src="https://i.ibb.co/bQmXPPH/output-1.png" alt="output 2">
+    <p>lets visualize and plot the data to see its trend</p>
+    <img class="img-fluid my-3" src="https://i.ibb.co/Vm0BczJ/3.png" alt="output 2">
+    <p class="my-3"><i>output</i></p>
+    <img class="img-fluid my-3" src="https://i.ibb.co/Yt4k4PT/03.png" alt="output 2">
+    <p>lets normalize the data so our model can learn the data more effectively and plot it again</p>
+    <img class="img-fluid my-3" src="https://i.ibb.co/TK5CWWr/4.png" alt="output 2">
+    <p class="my-3"><i>output</i></p>
+    <img class="img-fluid my-3" src="https://i.ibb.co/5ks3vyr/04.png" alt="output 2">
+    <p>For our time series regression model, we will take independent variable of 5 past trading data and dependent variable 1 trading data after previous 5. <br>
+        Example: <br>
+        5 trading data to predict 1 trading movement which is the 6th, then increase 1 index and so on <br>
+        [1], [2], [3], [4], [5] = [6] <br>
+        [2], [3], [4], [5], [6] = [7] <br>
+        [3], [4], [5], [6], [7] = [8] <br>
+        ... <br>
+        We will make a function where it will have 3 dimension array for independent variable of (3972, 5, 1). <br>
+        3972 will be number of data in dataframe after minus 5 <br>
+        5 is number of independent variable <br>
+        1 is the input <br>
+        the function will look like this
+    </p>
+    <img class="img-fluid my-3" src="https://i.ibb.co/0G0cNpc/5.png" alt="output 2">
+    <p>then we will split the data for training and testing. 80% of the data will be use for training and another 20% will be for testing</p>
+    <img class="img-fluid my-3" src="https://i.ibb.co/r0qvH0f/7.png" alt="output 2">
+    <p>then we will start to create a model, compile the model and fitting the model</p>
+    <img class="img-fluid my-3" src="https://i.ibb.co/Hg0VKT7/8.png" alt="output 2">
+</div>
+{% include 'contact_details.html' %} 
+{% endblock %}

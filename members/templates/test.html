@@ -1,0 +1,16 @@
+{% extends 'navbar.html' %}
+{% block content %}
+<div class="container">
+<form method="post" action="">
+  {% csrf_token %}
+
+  <div class="form-floating mb-3">
+    <textarea class="form-control" name="test" placeholder="Leave a comment here" id="id_comment" style="height: 100px" required></textarea>
+    <label for="id_comment">Comments</label>
+  </div>
+  <input type="submit" class="btn btn-primary btn-lg">
+  
+</form> 
+</div>
+{% include 'contact_details.html' %} 
+{% endblock %}

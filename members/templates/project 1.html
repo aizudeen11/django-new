@@ -1,0 +1,172 @@
+{% extends 'navbar.html' %}
+{% block content %}
+<div class="container">
+    <a href="#scrollspyComment">Go to comment</a>
+    <h1>Trading Stategy Analysis</h1>
+    <h3>Summary</h3>
+    <p>Forex trading is the process of speculating on currency prices to potentially make a profit. Currencies are traded in pairs, so 
+        by exchanging one currency for another, a trader is speculating on whether one currency will rise or fall in value against the other.
+        Since forex trading is gaining popularity amoung people, here I will analys one of the trading strategy to see the effectiveness</p>
+    <h3>Details</h3>
+    <p>The strategy that we will use for this analysis is engulfing candlestick pattern. Engulfing candlestick patterns are comprised of two bars on a price chart. They are used to indicate a market reversal. 
+        The second candlestick will be much larger than the first, so that it completely covers or ‘engulfs’ the length of the previous bar. There are two types:</p>
+    <ol class="list-group">
+        <li>Bullish engulfing candlestick patterns</li>
+        <p class="my-3">A bullish engulfing pattern appears in a downtrend. It is formed of a short red candle next to a much larger green candle.
+
+            The first candlestick shows that the bears were in charge of the market. Although the second period opens lower than the first, the new bullish pressure pushes the market price upwards – 
+            often to such an extent the second candle is twice the size of the previous one.</p>
+            <img class="img-fluid" src="https://a.c-dn.net/c/content/dam/publicsites/igcom/uk/images/ContentImage/What_is_a_bullish_engulfing_pattern@2x.png" alt="bullish">
+        <li>Bearish engulfing candlestick patterns</li>
+        <p class="my-3">A bearish engulfing pattern is the opposite of a bullish engulfing; it comprises of a short green candle that is completely covered by the following red candle.
+
+            The first candlestick shows that the bulls were in charge of the market, while the second shows that bearish pressure pushed the market price lower. The second period will open higher than 
+            the previous day but finish significantly lower.</p>
+            <img class="img-fluid my-3" src="https://a.c-dn.net/c/content/dam/publicsites/igcom/uk/images/ContentImage/What_is_a_bearish_engulfing_pattern@2x.png" alt="bearish">
+    </ol>
+    <h3>Analysis using Python</h3>
+    <ol>
+        <li class="my-3">
+            We need to load past forex trading data. For this, we will use the "yfinace" Python module. We can use any currency pair. For this case, I will use the EURUSD pair.
+            The "yfinace" Python module can only load up to 60 days of past trading data. Therefore, I will take the trading data from January 10 to March 5 with a 15-minute interval for each data point. 
+            The Python code will be as follows:            
+            <img class="img-fluid my-3" src="https://i.ibb.co/31dpnXr/code.png" alt="code1">
+            <p><i>output</i></p>
+            <img class="img-fluid my-3" src="https://i.ibb.co/SXgcJqZ/output-1.png" alt="output 1">
+        </li>
+        <li>
+        Then we need to make a function to analyze each piece of data to find a signal to buy or sell according to the engulfing candlestick pattern strategy. For this case, 
+        the function will give the signal for sell as "1' and the signal for buy as be '2'. If there is no signal, the function will return '0'. Then we will merge the signal 
+        data into our data frame. The function will be as follows:
+            <img class="img-fluid my-3" src="https://i.ibb.co/Z2QpRQ5/code2.png" alt="code2">
+            We can use the built-in function 'value_counts()" in Pandas to count how many signals the function provides.
+            <img class="img-fluid my-3" src="https://i.ibb.co/JqWkbbh/code4.png" alt="code3">
+            <p class="my-3"><i>output</i></p>
+            <img class="img-fluid my-3" src="https://i.ibb.co/Bntp9th/output-2.png" alt="output 2">
+        </li>
+        <li>
+            To test the effectiveness of this strategy, we need to see if it can generate profits for traders. To do so, we will check if the signal is Take Profit (TP) and 
+            not Stop Loss (SL). First, we need to make a list of heading names that we will use as headers in our dataframe earlier and a list of ratios between 0.1 and 1.9. 
+            I will explain more about the list of ratios later. The code should be like below.
+            <img class="img-fluid my-3" src="https://i.ibb.co/svNMzc7/code5.png" alt="code4">
+        </li>
+        <li>
+            To check the effectiveness of this strategy, we can make a function as below. The function will return 'TP' or 'SL' for each signal. We will set the 'SL' constant 
+            at 30 pips. However, I will set the 'TP' base on the previous candle's height with a ratio between 0.1 and 1.9 with a 0.1 interval. Using the list of ratios I made 
+            before, the code will loop each array of the list of ratios, and another for loop will feed the previous function with the data needed to analyze the signal and 
+            determine whether it provides profit (TP) or loss (SL). The information will be appended to the variable list TP. The TP list will be a long array and need to be 
+            divided equally for each ratio.
+            <img class="img-fluid my-3" src="https://i.ibb.co/NK7hNP7/code6.png" alt="code5">
+        </li>
+        <li>
+            To divide it, we can make a function as below. Since the dataframe size is 3639, we will set the parameter chunk_size to 3696. With this, we can divide the TP list 
+            into 19 (the total number of ratios used in this analysis) equally sized chunks, which we will merge into our dataframe.
+            <img class="img-fluid my-3" src="https://i.ibb.co/kDKWCgY/code7.png" alt="code6">
+            <p>you can view the data <a href="https://drive.google.com/drive/folders/16BM9OwOEoA8v9_g2FeDqY4l3WjWzM9g7?usp=sharing" target="blank">Here</a></p>
+        </li>
+        <li>
+            <p>Using the for loop with the pandas function 'value_counts()," we can check for each signal in the dataframe how many TP and SL there are with each TP ratio.</p> 
+            <img class="img-fluid my-3" src="https://i.ibb.co/n8JRRsm/code8.png" alt="code7">
+            <p class="my-3"><i>output</i></p>
+            <img class="img-fluid my-3" src="https://i.ibb.co/HXn9KT3/output-3.png" alt="output3">
+            <p>As we can see, for each ratio from TP1 with a ratio of 0.1 all the way to TP19 with a ratio of 1.9, the TP and SL vary; however, the SL and TP will add up to the 
+                same total number of sell (1) and buy (2) signals of 274</p>           
+        </li>
+    </ol>
+    <h3>Data Visualization</h3>
+    <p>Using the analyzed data from Python earlier, we can visualize the data to help us understand it better.</p>
+    <img class="img-fluid my-3" src="https://i.ibb.co/K08yQry/Picture1.png" alt="pic1">
+    <p>As we can see, the correlation between the TP ratio and the SL is negative. It means that the more you increase the TP ratio, even though you can make a higher profit, 
+        you tend to make more losses as well. Therefore, we can conclude: high risk, high rewards.
+    </p>
+    <p>
+        If we look at the total number of signals we get using the engulfing candlestick pattern strategy, we can visualize it as below.
+    </p>
+    <img class="img-fluid my-3" src="https://i.ibb.co/P9njdtx/Picture3.png" alt="pic2">
+    <p>As we can see, using this strategy, we can get around 8% of buy or sell signals most of the time.</p>
+    <h3>Corelation</h3>
+    <p>
+        While searching through the internet to gain more information regarding this strategy, I stumbled upon this information.
+        <img class="img-fluid my-3" src="https://i.ibb.co/hyZBpM9/bear-and-bull.png" alt="">
+        <p> We will test the correlation between buyers and sellers in total control using an engulfing candlestick pattern strategy. As for the picture above, we will be using 
+            the first candle's information for bullish and bearish. We can use the code below.</p>
+        <img class="img-fluid my-3" src="https://i.ibb.co/jy2yTBW/code9.png" alt="">
+        and then we will use 'value_counts()' to count how many of the sell and buy signals are related to buyers and sellers in total control of the candlestick.
+        <ul>
+            <li><p> signal (1) Sell</p>
+                <img class="img-fluid my-3" src="https://i.ibb.co/qRxtRbN/code10.png" alt="">
+                <p class="my-3"><i>output</i></p>
+                <img class="img-fluid my-3" src="https://i.ibb.co/YkhCDkV/01.png" alt="">
+            </li>
+            <li>
+                <p> signal (2) Buy</p>
+                <img class="img-fluid my-3" src="https://i.ibb.co/JFY4Mfb/code11.png" alt="">
+                <p class="my-3"><i>output</i></p>
+                <img class="img-fluid my-3" src="https://i.ibb.co/TKCnLX9/02.png" alt="">
+            </li>
+        </ul>
+        From this analysis, we learn that 66 out of a total of 274 signals are corelated. If we change it into a percentage, it will be about 25%.
+    </p>
+    <h3>Conclusion</h3>
+    <p>From this simple data analysis project, we learn that this engulfing candlestick pattern strategy</p>
+    <ul>
+        <li>Engulfing candlestick patterns are comprised of two bars on a price chart</li>
+        <li>The second candlestick will be much larger than the first, so that it completely covers or ‘engulfs’ the length of the previous bar</li>
+        <li>This strategy can work most of the time. The success rate is determined by the TP you set for each trade (TP ratio).</li>
+        <li>Like most trading strategies, this one is risky but rewardable, aligning with the trading principle that links high risk with high reward.</li>
+    </ul>
+    <h3>Future Improvement</h3>
+    <p>As this is a simple data analysis project, there is a lot of room for improvement in order to learn more about the engulfing candlestick pattern 
+        strategy. There are several things we can improve for this strategy analysis.
+    </p>
+    <ul>
+        <li> <p> This analysis did not consider the spread for each signal. The forex spread is the difference between a forex broker's sell rate and buy rate 
+            when exchanging or trading currencies.</p>
+            <img class="img-fluid my-3" src="https://assets.cmcmarkets.com/images/Spread-in-forex_extra.webp" alt="img">
+            <p> On average, the spread can be between 1 and 2 pips. Therefore, the spread can affect the TP as well as the SL.</p>
+        </li>
+        <li> <p>
+            The signal used in the strategy for this analysis did not consider any economic event. Forex is a real global marketplace, with buyers and sellers from 
+            all corners of the globe participating in trillions of dollars of trades each day. The fact that foreign exchange trading has become such a global activity 
+            means that macroeconomic events everywhere play a greater role in forex than ever before. 
+        </p></li>
+        <li><p>
+            This analysis simply shows whether the signal can give a trader TP or SL. However, this analysis did not analyze which TP ratio can give traders the most profit 
+            over the other ratio. This is very related to economic theory—the law of diminishing returns.
+        </p>    
+            <img class="img-fluid my-3" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Diminishing_Returns_Graph.svg/1280px-Diminishing_Returns_Graph.svg.png" alt="">
+            <p>
+                We can change the output to pips or profit and the input to TP ratio using the graph above.As we can see, the increase in the TP ratio can increase the profit 
+                until it reaches the maximum profit that a trader can gain at the point of maximum yield. However, after the highest point, the profit tends to decrease because 
+                of more SL. We can see this happening in our previous data visualization section, TP and SL analysis.
+            </p>
+        </li>
+        <li>
+            <p> As per the previous section of Correlation, where it talks about the correlation between buyers and sellers in total control and engulfing candlestick pattern strategy, 
+                it seems it still needs more analysis to see how true this correlation is.</p>
+        </li>
+        <li>
+            <p> Since this analysis uses the Python module 'yfinance' and can only get trading data for 60 days, the data seem small, so the truth of the conclusion can be biased. 
+                The dataframe needs to be larger in order to follow the law of large numbers, where In probability theory, the law of large numbers (LLN) is a theorem that describes 
+                the result of performing the same experiment a large number of times. According to the law, the average of the results obtained from a large number of trials 
+                should be close to the expected value and tend to become closer to the expected value as more trials are performed.</p>
+        </li>
+    </ul>
+    <h3>Main Reference</h3>
+    <p><a href="https://www.youtube.com/watch?v=WcfKaZL4vpA&t=193s">How To Build A Trading Bot In Python</a></p>
+    <p><a href="https://www.ig.com/en/trading-strategies/how-to-trade-using-bullish-and-bearish-engulfing-candlesticks-191114#:~:text=What%20is%20an%20engulfing%20candlestick,length%20of%20the%20previous%20bar.">How to trade using bullish and bearish engulfing candlesticks</a></p>
+    <p><a href="https://en.wikipedia.org/wiki/Law_of_large_numbers">Law of large numbers</a></p>
+    <p><a href="https://en.wikipedia.org/wiki/Diminishing_returns">Diminishing returns</a></p>
+    <p><a href="https://www.cmcmarkets.com/en/learn-forex/spread-in-forex">Spread in forex trading</a></p>
+
+    {% include 'comment.html' %} 
+    <!-- <form method="POST" action="">
+    {% csrf_token %}
+    {{form.as_p}}
+    <input type="submit" class="btn btn-primary btn-lg">
+    </form> -->
+<p class="my-4">Get the comment API <a href="/api/comment/?format=json" target="_blank">Here</a></p>
+</div>
+
+{% include 'contact_details.html' %} 
+{% endblock %}

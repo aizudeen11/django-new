@@ -1,0 +1,55 @@
+{% extends 'navbar.html' %}
+{% block content %}
+<div class="container">
+    <h1>Project</h1>
+<div>
+    <table class="table table-hover" style="margin-top: 16px;">
+      <tr style="border-bottom: 2px;">
+        <th class="col-2">Name</th>
+        <th class="col-2">Project type</th>
+        <th class="col-7">Summary</th>
+        <th class="col-1">Details</th>
+      </tr>
+      <tr>
+        <td class="col-2">Trading Stategy Analysis</td> 
+        <td class="col-2">Data Analysis</td>    
+        <td class="col-7">This project analyse the effectiveness of one of the foreign exchange trading strategy, engulfing candlestick patterns. The analysis will be
+          done using Python and transform the analyzed data into visualization. At the end of it, it provide conclusion and future improvement.
+        </td>
+        <td class="col-1"><a href="{% url 'analysis1' %}">View</a></td>
+      </tr>
+      <tr>
+        <td class="col-2">Pyscript Framework Project</td> 
+        <td class="col-2">New Framework</td>    
+        <td class="col-7">This project uses the new introduced PyScript framework to embed the Python programming language into web development. This project uses various PyScript tags 
+          to increase the functionality of the webpage.
+        </td>
+        <td class="col-1"><a href="{% url 'analysis2' %}">View</a></td>
+      </tr>
+      <tr>
+        <td class="col-2">Forex Trading Using Deep Learning</td> 
+        <td class="col-2">
+          <div> Deep Learning
+        </div>
+        </td>    
+        <td class="col-7">Work in Progress
+        </td>
+        <td class="col-1"><a href="{% url 'analysis3' %}">View</a></td>
+      </tr>
+      <tr>
+        <td class="col-2">Sentiment Analysis for Human Language</td> 
+        <td class="col-2">
+          <div> Natural Language Processing
+        </div>
+        </td>    
+        <td class="col-7">Work in Progress
+        </td>
+        <td class="col-1"><a href="{% url 'analysis4' %}">View</a></td>
+      </tr>
+    </table>
+  
+</div>
+</div>
+
+{% include 'contact_details.html' %} 
+{% endblock %}

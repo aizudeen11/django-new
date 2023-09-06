@@ -1,0 +1,14 @@
+{% extends 'navbar.html' %}
+{% block content %}
+<div class="container">
+    <h3>What is this website's API?</h3>
+    <p>This website has its own API for its members' details who have signed up and commented on it in JSON format.</p>
+    <p>The API was made using django Rest Framework</p>
+    <p>Still haven't given this website a rating? You can do it here.</p>
+    <a href="/members/rate/">Rate here</a>
+    <p>Want to access this website's API?</p>
+    <p>You can use this link below</p>
+    <a href="/api/members/?format=json"> API link</a>
+</div>
+{% include 'contact_details.html' %} 
+{% endblock %}

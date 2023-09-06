@@ -1,0 +1,103 @@
+{% extends 'navbar.html' %}
+{% block content %}
+<link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css"/>
+<script defer src="https://pyscript.net/latest/pyscript.js"></script>
+<div class="container">
+    <h1>Pyscript Framework Project</h1>
+    <h3>Summary</h3>
+    <p>
+        <a href="https://pyscript.net/">PyScript</a> is a framework that allows users to create rich Python applications in the browser using HTML's interface and the power of 
+        <a href="https://pyodide.org/en/stable/">Pyodide</a>, <a href="https://webassembly.org/"> WASM</a>, and modern web technologies. However, the developer 
+        advised that PyScript is very alpha and under heavy development. There are many known issues, from usability to loading times, and you should expect
+        things to change often. 
+    </p>
+    <h3>Details</h3>
+    <p>Pyscript have many of it own unique HTML tag and CDN. However for this project we will use several of it which is,</p>
+    <ol>
+        <li>Setting up the base index file</li>
+        <p>We need to copy and paste Pyscript CDN at HTML header</p>
+        <img class="img-fluid" src="https://i.ibb.co/DVhmctD/code.png" alt="code">
+        <p>Copy the CDN <a href="https://pyscript.net/">Here</a></p>
+        <li><strong><code>py-config</code></strong> - Importing the needed libraries</li>
+        <p>For this example, we will need to install numpy and matplotlib. We can install libraries using the <code>py-config</code> tag so we can import them later. 
+            Please refer to the <a href="https://docs.pyscript.net/latest/reference/elements/py-config.html"><code>py-config</code></a> documentation for more information.</p>
+        <li><strong><code>py-script</code></strong> - Importing the data</li>
+        <p>Now that we have installed the needed libraries, we can import and explore the data. In this step, we need to create a <code>py-script</code> tag to import 
+            our dependencies</p>
+        <li><strong><code>py-repl</code></strong> - Exploring</li>
+        <p>Use <code>py-repl</code> to explore the data.</p>
+        <li><strong><code>py-terminal</code></strong> - plugins in PyScript</li>
+        <p>This tag use to see the output from <code>py-repl</code></p>
+        <li><strong><code>display(*values, target=None, append=True)</code></strong> - display objects</li>
+        <p>Display is the default function to display objects on the screen.</p>
+    </ol>
+    <py-config>
+        packages = ["matplotlib", "numpy"]
+    </py-config>
+    <py-script>
+        import random
+        import matplotlib.pyplot as plt
+        import numpy as np
+        def prob(n):
+            i = 0
+            change_win = 0
+            change_lose = 0
+            while i != n:
+                lists = ["goat", "goat", "car"]
+                random.shuffle(lists)
+                x = random.randint(0,2)
+                pick = lists[x]
+                lists.remove(pick)
+                lists.remove("goat")
+                if lists == ["car"]:
+                    change_win += 1
+                else:
+                    change_lose += 1
+                i += 1
+            y = np.array([change_win, change_lose])
+            mylabels = ["change win", "change lose"]
+            plt.pie(y, labels = mylabels)
+            plt.title("Monty-Hall-problem: win and lose probability")
+        prob(1000)
+        display(plt, target="graph-area", append=False)
+
+    </py-script>
+    <hr>
+    <h3>Put Together</h3>
+    <p>For this project, I will use my previous Monty-Hall-problem probability analysis project. Click <a href="https://github.com/aizudeen11/Monty-Hall-problem">Here</a>
+    to view my project</p>
+    <p>When everything is put together, it will look like this: </p>
+    <div style="background-color: bisque;">Note: You can run the <code>py-repl</code> below by clicking run button at the bottom right of the repl</div>
+    <py-repl>
+        import random
+
+        def prob(n):
+            i = 0
+            change_win = 0
+            change_lose = 0
+            while i != n:
+                lists = ["goat", "goat", "car"]
+                random.shuffle(lists)
+                x = random.randint(0,2)
+                pick = lists[x]
+                lists.remove(pick)
+                lists.remove("goat")
+                if lists == ["car"]:
+                    change_win += 1
+                else:
+                    change_lose += 1
+                i += 1
+            print(f"if player change door, the player has {change_win/n*100}% to win")
+            print(f"while player has {change_lose/n*100}% chance to lose")
+        prob(1000)
+    </py-repl>
+    <py-terminal></py-terminal>
+    <p>Below we use <code>display()</code> to visualize the probability information about Monty-Hall-problem using Python module, matplotlib.</p>
+    <!-- <button py-onClick="prob(1000)">Click me</button> -->
+    <div id="graph-area" class="text-center"></div>
+    <p>Get this webpage HTML code <a href="https://github.com/aizudeen11/project2" target="blank">Here</a></p>
+    {% include 'comment.html' %} 
+</div>
+
+{% include 'contact_details.html' %} 
+{% endblock %}

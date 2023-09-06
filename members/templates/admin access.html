@@ -1,0 +1,11 @@
+{% extends 'navbar.html' %}
+{% block content %}
+<div class="container">
+    <a href="{{request.META.HTTP_REFERER}}">Go back</a>
+    <h2>
+        Opps, sorry. Only superuser can use this feature
+    </h2>
+    <p>If you want to delete or edit you rating, kindly contact admin as below</p>
+</div>
+{% include 'contact_details.html' %} 
+{% endblock %}

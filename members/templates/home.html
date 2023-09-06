@@ -1,0 +1,49 @@
+{% extends 'navbar.html' %}
+{% block content %}
+<div class="container">
+{% if request.user.is_authenticated %}
+<h3>Hello {{request.user}}!</h3>
+{% endif %}
+</div>
+<div class="container">
+    <i class="m-3">What is new!</i>
+    <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+        See more
+      </a>
+      <div class="collapse" id="collapseExample">
+        <div class="card card-body">
+        <p>Two new project added. Be the first to read it <a href="/analysis_main">Here</a></p>
+        </div>
+        </div>
+    <hr>
+    <h1>What is this website created from?</h1>
+    <p>This website created mainly using web framework Django for back-end and Django Rest Framework for the API</p>
+    <p>Main reference:</p>
+    <p>Youtube : <a href="https://www.youtube.com/watch?v=PtQiiknWUcI&t=9974s" target="blank">Python Django 7 Hour Course</a></p>
+    <p>w3schools : <a href="https://www.w3schools.com/django/index.php" target="blank">Django Tutorial</a> | <a href="https://www.w3schools.com/html/default.asp" target="blank">HTML Tutorial</a></p>
+    <p>For front-end using Bootstrap and CSS</p>
+    <p>Main reference:</p>
+    <p>Bootstrap (Include via CDN only) : <a href="https://getbootstrap.com/">Bootstrap</a></p>
+    <p>w3schools : <a href="https://www.w3schools.com/css/default.asp" target="blank">CSS Tutorial</a> | <a href="https://www.w3schools.com/bootstrap5/index.php" target="blank">Bootstrap 5 Tutorial</a></p>
+    <hr>
+    <h2 style="text-align:center; ">~*~Daily Economic News~*~</h2>
+    <p>{{title}}</p>
+    <p>{{snippet}}</p> -->
+    <a href="{{url0}}" target="_blank">read more</a>
+    <!-- <p><i>Sorry, unable to show daily economic news since this webpage already use all the api count for this month</i></p> -->
+    <!-- <a href="" target="blank">Read more</a> -->
+    <hr>
+    <h2 style="text-align:center; ">~*~Daily Weather Info~*~</h2>
+    <p>Weather location at {{country_code}} , {{location_name}} on {{date}}: 
+    <p>Weather condition is {{weather_discription}}, with temperature {{celcius}}°C</p>
+    <p>Sunrise time: {{sun_rise}}</p>
+    <p>Sunset time: {{sun_set}}</p>
+    <img src="{{URL_icon}}" alt="icon">
+    <hr>
+    <h2 style="text-align:center; ">~*~Daily Nasa Discovery~*~</h2>
+    <p>{{title_nasa}} on {{date_nasa}}</p>
+    <p style="text-align: justify;">{{info_nasa}}</p>
+    <img src="{{url_nasa}}" class="img-fluid" alt="">
+</div>
+{% include 'contact_details.html' %} 
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'navbar.html' %}
+{% block content %}
+
+
+<div class="container">
+  <p><strong>You can write anything in English and it will show the sentimen analysis</strong></p>
+  <form method="post" action="">
+      {% csrf_token %}
+
+      <div class="form-floating mb-3">
+        <textarea class="form-control" name="comment" placeholder="Leave a comment here" id="id_comment" style="height: 100px" required></textarea>
+        <label for="id_comment">Comments</label>
+      </div>
+      <input type="submit" class="btn btn-primary btn-lg">
+      
+  </form> 
+
+    <div class="container">
+      <div>
+      <table class="table table-hover" style="margin-top: 16px;">
+        <tr style="border-bottom: 2px;">
+          <th class="col-8">Comment</th>
+          <th class="col-1">Negative</th>
+          <th class="col-1">Positive</th>
+          <th class="col-1">Neutral</th>
+          <th class="col-1">Compound</th>
+        </tr>
+        {% for x in sentimen %}
+        <tr>
+          <td class="col-8">{{ x.comment }}</td>  
+          <td class="col-1">{{ x.neg }}</td> 
+          <td class="col-1">{{ x.pos }}</td> 
+          <td class="col-1">{{ x.neu }}</td> 
+          <td class="col-1">{{ x.compound }}</td>    
+          
+          {% endfor %}
+        </tr>
+      </table>
+    
+    </div>
+    </div>
+</div> 
+
+{% include 'contact_details.html' %} 
+{% endblock %}

@@ -1,0 +1,52 @@
+<hr>
+<h3>Comment</h3>
+<p>If there is any improvement or suggestion regarding this analysis, kindly let me know</p>
+<div>
+    <form method="post" action="">
+        {% csrf_token %}
+        <div class="form-group mb-3">
+            <label for="id_project">Project Type</label>
+            <select name="project" class="form-control" id="id_project">
+                <option value="Trading stategy analysis">Trading stategy analysis</option>
+                <option value="Pyscript Framework Project">Pyscript Framework Project</option>
+            </select>
+
+          </div>
+        <div class="form-floating mb-3">
+          <input type="text" class="form-control" name="name" maxlength="255" required id="id_name" placeholder="John">
+          <label for="id_name">Name</label>
+            
+        </div>
+        <div class="form-floating mb-3">
+          <textarea class="form-control" name="comment" placeholder="Leave a comment here" id="id_comment" style="height: 100px" required></textarea>
+          <label for="id_comment">Comments</label>
+        </div>
+        <input type="submit" class="btn btn-primary btn-lg">
+        
+    </form> 
+</div> 
+      
+
+    
+    <h4 class="my-4" id="scrollspyComment">See other people comments</h4>
+    <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+        See more
+      </a>
+      <div class="collapse" id="collapseExample">
+        <div class="card card-body">
+        <div class="row">
+        <div class="col-1"><strong>Name</strong></div>  
+        <div class="col-2"><strong>Project</strong></div>
+        <div class="col"><strong>Comment</strong></div>
+        </div>
+        {% for x in comment %}
+        <hr class="{{ x.name }}">
+        <div class="row" id="{{ x.name }}">
+        <div class="col-1">{{ x.name }}</div>  
+        <div class="col-2">{{ x.project }}</div>  
+        <div class="col">{{x.comment}}</div>
+        </div>
+        
+        {% endfor %}
+        </div>
+        </div>
